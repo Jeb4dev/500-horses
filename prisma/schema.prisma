@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// schema.prisma
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  // Other user fields, if needed
+  userPages UserPage[]
+}
+
+model Page {
+  id      String  @id @default(uuid())
+  name    String
+  content String
+  order   Int     // Page order (from 1-500)
+  userPages UserPage[]
+}
+
+model UserPage {
+  userId  String
+  pageId  String
+  foundAt DateTime @default(now())
+  message String?  // Optional message
+
+  user User @relation(fields: [userId], references: [id])
+  page Page @relation(fields: [pageId], references: [id])
+
+  @@id([userId, pageId]) // Composite primary key
+}
