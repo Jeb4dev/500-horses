@@ -14,7 +14,8 @@
 		"postbuild": "npx svelte-sitemap --domain http://127.0.0.1/",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"prepare": "husky"
+		"prepare": "husky",
+		"postinstall": "prisma generate"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte,css}": "prettier --write"
