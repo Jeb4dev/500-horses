@@ -85,7 +85,7 @@
 					{#if parsedContents[page.id]}
 						<a href={`/${page.id}`} class="text-center block">
 							<img
-								src={parsedContents[page.id].image}
+								src={'/horses/' + page.id + '.png'}
 								alt={parsedContents[page.id].title}
 								class="mb-2 w-40 h-40 object-cover rounded-lg mx-auto"
 							/>

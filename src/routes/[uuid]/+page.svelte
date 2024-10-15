@@ -151,7 +151,7 @@
 			{/if}
 			<div class="page-card rounded-lg p-4">
 				<img
-					src={contentParsed.image}
+					src={'/horses/' + uuid + '.png'}
 					alt={contentParsed.title}
 					class="w-60 h-60 object-cover rounded-lg mb-4 mx-auto"
 				/>
