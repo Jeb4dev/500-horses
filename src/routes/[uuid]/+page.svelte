@@ -6,6 +6,7 @@
 	import { user } from '$lib/stores/user' // Assuming you store the user in a Svelte store
 	import { get } from 'svelte/store' // To retrieve store values
 	import confetti from 'canvas-confetti'
+	import Hexa from '$lib/components/Hexa.svelte'
 	import Loading from '$lib/components/Loading.svelte'
 
 	let pageData = null // Page data
@@ -155,29 +156,34 @@
 					alt={contentParsed.title}
 					class="w-60 h-60 object-cover rounded-lg mb-4 mx-auto"
 				/>
-				<h3 class="text-lg font-bold text-gray-900 dark:text-white">{contentParsed.title}</h3>
-				<p class="text-sm text-gray-700 dark:text-gray-300 mb-4">{contentParsed.description}</p>
-
-				<div class="text-sm text-gray-600 dark:text-gray-400">
-					<p>Viewed by: {pageData.viewCount} users</p>
-					{#if foundTimestamp}
-						<p>You found this page on: {foundTimestamp}</p>
-					{/if}
+				<div class="flex items-center justify-center gap-6 py-6 flex-wrap">
+					<Hexa position={'Page'} posNum={contentParsed.title.slice(5)} />
+					<Hexa position={'You were'} posNum={'1 st'} />
+					<Hexa position={'Views'} posNum={pageData.viewCount} />
 				</div>
+				<div class="flex flex-col justify-center items-center gap-4 my-8">
+					<p class="text-sm text-gray-700 dark:text-gray-300 mb-4">{contentParsed.description}</p>
 
-				<!-- Display users who found the page -->
-				<div class="mt-4">
-					<h4 class="font-semibold text-gray-900 dark:text-white">Users who found this page:</h4>
-					<ul class="list-disc pl-4 text-sm text-gray-700 dark:text-gray-300">
-						{#each pageData.usersFound as user}
-							<li>
-								<p>{user.name} found it on {new Date(user.foundAt).toLocaleString()}</p>
-								{#if user.message}
-									<p class="text-gray-500 italic">Message: "{user.message}"</p>
-								{/if}
-							</li>
-						{/each}
-					</ul>
+					<div class="text-sm text-gray-600 dark:text-gray-400">
+						{#if foundTimestamp}
+							<p>You found this page on: {foundTimestamp}</p>
+						{/if}
+					</div>
+
+					<!-- Display users who found the page -->
+					<div class="mt-4">
+						<h4 class="font-semibold text-gray-900 dark:text-white">Users who found this page:</h4>
+						<ul class="list-disc pl-4 text-sm text-gray-700 dark:text-gray-300">
+							{#each pageData.usersFound as user}
+								<li>
+									<p>{user.name} found it on {new Date(user.foundAt).toLocaleString()}</p>
+									{#if user.message}
+										<p class="text-gray-500 italic">Message: "{user.message}"</p>
+									{/if}
+								</li>
+							{/each}
+						</ul>
+					</div>
 				</div>
 			</div>
 		{:else}
